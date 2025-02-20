@@ -1,6 +1,7 @@
 import Layout from "@/components/layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function LeaseAgreement() {
   const leaseDetails = {
@@ -13,6 +14,15 @@ export default function LeaseAgreement() {
 
   return (
     <Layout>
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <Link href="/tenant" className="text-blue-600 hover:underline">
+            ← Back to Dashboard
+          </Link>
+        </div>
+        <h1 className="text-2xl font-semibold text-gray-900">Lease Agreement</h1>
+      </div>
+
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-gray-900">Lease Agreement</h1>

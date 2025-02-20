@@ -1,5 +1,6 @@
 import Layout from "@/components/layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import Link from "next/link"
 
 function getThirdWorkingDay(year: number, month: number) {
   let date = new Date(year, month, 1)
@@ -81,6 +82,15 @@ export default function CurrentRent() {
 
   return (
     <Layout>
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <Link href="/tenant" className="text-blue-600 hover:underline">
+            ← Back to Dashboard
+          </Link>
+        </div>
+        <h1 className="text-2xl font-semibold text-gray-900">Rent Overview</h1>
+      </div>
+
       <div className="space-y-6">
         <h1 className="text-2xl font-semibold text-gray-900">Rent Overview</h1>
         

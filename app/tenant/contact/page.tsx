@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Layout from "@/components/layout"
+import Link from "next/link"
 
 export default function ContactLandlord() {
   const [messages, setMessages] = useState<string[]>([])
@@ -16,7 +17,14 @@ export default function ContactLandlord() {
 
   return (
     <Layout>
-      <h1 className="mb-8 text-3xl font-bold text-gray-800">Contact Landlord</h1>
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <Link href="/tenant" className="text-blue-600 hover:underline">
+            ← Back to Dashboard
+          </Link>
+        </div>
+        <h1 className="text-3xl font-bold text-gray-800">Contact Landlord</h1>
+      </div>
       <div className="mb-4 h-96 overflow-y-auto rounded-lg bg-white p-4 shadow">
         {messages.map((message, index) => (
           <div key={index} className="mb-2 rounded-lg bg-blue-100 p-3 text-blue-800">

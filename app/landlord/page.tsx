@@ -77,7 +77,7 @@ export default function LandlordPortal() {
             color="bg-purple-100 text-purple-600"
           />
           <PortalCard
-            title="Maintenance Requests"
+            title="Maintenance"
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"

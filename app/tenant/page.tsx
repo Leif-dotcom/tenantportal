@@ -77,7 +77,7 @@ export default function TenantPortal() {
             color="bg-yellow-100 text-yellow-600"
           />
           <PortalCard
-            title="Maintenance History"
+            title="Maintenance"
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"

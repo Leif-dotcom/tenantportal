@@ -138,101 +138,103 @@ export default function PaymentHistoryPage() {
   });
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <Link href="/landlord/finances" className="text-blue-600 hover:underline">
-            ← Back to Financial Overview
-          </Link>
-        </div>
-        <h1 className="text-3xl font-bold">Payment History</h1>
-      </div>
-
-      {/* Filters */}
-      <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Input
-          placeholder="Search by tenant or reference..."
-          type="search"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <Select value={selectedProperty} onValueChange={setSelectedProperty}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by Property" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Properties</SelectItem>
-            {mockProperties.map((property) => (
-              <SelectItem key={property.id} value={property.id}>
-                {property.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={selectedType} onValueChange={setSelectedType}>
-          <SelectTrigger>
-            <SelectValue placeholder="Payment Type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Types</SelectItem>
-            <SelectItem value="rent">Rent</SelectItem>
-            <SelectItem value="deposit">Deposit</SelectItem>
-            <SelectItem value="utilities">Utilities</SelectItem>
-            <SelectItem value="late_fee">Late Fee</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      {/* Payments List */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Transactions</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {filteredPayments.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                No payments found matching your criteria
-              </div>
-            ) : (
-              filteredPayments.map((payment) => (
-                <div
-                  key={payment.id}
-                  className="border-b last:border-0 pb-4 last:pb-0"
-                >
-                  <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <p className="font-medium">{payment.tenant.name}</p>
-                        <span className="text-sm text-gray-500">•</span>
-                        <p className="text-sm text-gray-500">{payment.reference}</p>
-                      </div>
-                      <p className="text-sm text-gray-500">
-                        {payment.property.name} - Apt {payment.apartment}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-medium">{formatCurrency(payment.amount)}</p>
-                      <p className={`text-sm ${getStatusColor(payment.status)}`}>
-                        {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center text-sm text-gray-500">
-                    <div className="flex items-center gap-2">
-                      <span>{formatDate(payment.date)}</span>
-                      <span>•</span>
-                      <span>{getPaymentTypeLabel(payment.type)}</span>
-                      <span>•</span>
-                      <span className="capitalize">{payment.method.replace('_', ' ')}</span>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <Link href="/landlord/finances" className="text-blue-600 hover:underline">
+              ← Back to Financial Overview
+            </Link>
           </div>
-        </CardContent>
-      </Card>
+          <h1 className="text-3xl font-bold">Payment History</h1>
+        </div>
+
+        {/* Filters */}
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Input
+            placeholder="Search by tenant or reference..."
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Select value={selectedProperty} onValueChange={setSelectedProperty}>
+            <SelectTrigger>
+              <SelectValue placeholder="Filter by Property" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Properties</SelectItem>
+              {mockProperties.map((property) => (
+                <SelectItem key={property.id} value={property.id}>
+                  {property.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={selectedType} onValueChange={setSelectedType}>
+            <SelectTrigger>
+              <SelectValue placeholder="Payment Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              <SelectItem value="rent">Rent</SelectItem>
+              <SelectItem value="deposit">Deposit</SelectItem>
+              <SelectItem value="utilities">Utilities</SelectItem>
+              <SelectItem value="late_fee">Late Fee</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Payments List */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Transactions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {filteredPayments.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">
+                  No payments found matching your criteria
+                </div>
+              ) : (
+                filteredPayments.map((payment) => (
+                  <div
+                    key={payment.id}
+                    className="border-b last:border-0 pb-4 last:pb-0"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium">{payment.tenant.name}</p>
+                          <span className="text-sm text-gray-500">•</span>
+                          <p className="text-sm text-gray-500">{payment.reference}</p>
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          {payment.property.name} - Apt {payment.apartment}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium">{formatCurrency(payment.amount)}</p>
+                        <p className={`text-sm ${getStatusColor(payment.status)}`}>
+                          {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center text-sm text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <span>{formatDate(payment.date)}</span>
+                        <span>•</span>
+                        <span>{getPaymentTypeLabel(payment.type)}</span>
+                        <span>•</span>
+                        <span className="capitalize">{payment.method.replace('_', ' ')}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 } 

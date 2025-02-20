@@ -1,4 +1,3 @@
-import Layout from "@/components/layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 
@@ -81,123 +80,123 @@ export default function CurrentRent() {
   const progressPercentage = Math.max(0, Math.min(100, (elapsedDuration / totalDuration) * 100))
 
   return (
-    <Layout>
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <Link href="/tenant" className="text-blue-600 hover:underline">
-            ← Back to Dashboard
-          </Link>
-        </div>
-        <h1 className="text-2xl font-semibold text-gray-900">Rent Overview</h1>
-      </div>
-
-      <div className="space-y-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Rent Overview</h1>
-        
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle className="text-sm font-medium text-gray-500">Payment Details</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-3xl font-bold text-gray-900">€{currentRent}</span>
-                    <span className="text-sm text-gray-500">per month</span>
-                  </div>
-                </div>
-                <div className="space-y-2 rounded-lg bg-gray-50 p-3 text-sm">
-                  <div className="space-y-1">
-                    <div className="text-gray-500">Bank Details:</div>
-                    <div className="font-medium">{paymentDetails.bankName}</div>
-                    <div className="font-mono text-gray-600">IBAN: {paymentDetails.iban}</div>
-                    <div className="font-mono text-gray-600">BIC: {paymentDetails.bic}</div>
-                  </div>
-                  <div className="space-y-1 pt-2">
-                    <div className="text-gray-500">Payment Reference:</div>
-                    <div className="font-mono font-medium">{paymentDetails.reference}</div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle className="text-sm font-medium text-gray-500">Next Payment</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-baseline justify-between">
-                    <div className="space-y-1">
-                      <div className="text-sm text-gray-500">Payment for</div>
-                      <div className="text-lg font-semibold text-gray-900">{paymentDetails.rentMonth}</div>
-                    </div>
-                    <div className="text-right space-y-1">
-                      <div className="text-sm text-gray-500">Due date</div>
-                      <div className="text-lg font-semibold text-gray-900">{paymentDetails.dueDay}</div>
-                    </div>
-                  </div>
-                  <div className="pt-2">
-                    <div className="flex items-baseline">
-                      <span className="text-3xl font-bold text-gray-900">{daysRemaining}</span>
-                      <span className="ml-2 text-sm text-gray-500">days remaining</span>
-                    </div>
-                    <div className="mt-1 text-sm text-gray-500">
-                      Today: {paymentDetails.currentDate}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <div className="h-2 w-full rounded-full bg-gray-200">
-                    <div 
-                      className="h-2 rounded-full bg-blue-500" 
-                      style={{ width: `${progressPercentage}%` }}
-                    ></div>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Period start: {formatDate(currentMonthStart)}</span>
-                    <span>Due: {paymentDetails.dueDay}</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <Link href="/tenant" className="text-blue-600 hover:underline">
+              ← Back to Dashboard
+            </Link>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-800">Rent Overview</h1>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-medium">Payment History</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="rounded-lg border border-gray-200">
-              <div className="grid grid-cols-3 gap-4 border-b border-gray-200 bg-gray-50 p-4 text-sm font-medium text-gray-500">
-                <div>Date</div>
-                <div>Amount</div>
-                <div>Status</div>
-              </div>
-              {paymentHistory.map((payment, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-3 gap-4 p-4 text-sm text-gray-900 transition-colors hover:bg-gray-50"
-                >
-                  <div>{payment.date}</div>
-                  <div>€{payment.amount}</div>
+        <div className="space-y-6">
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+              <CardHeader className="pb-4">
+                <CardTitle className="text-sm font-medium text-gray-500">Payment Details</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
                   <div>
-                    <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
-                      {payment.status}
-                    </span>
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-3xl font-bold text-gray-900">€{currentRent}</span>
+                      <span className="text-sm text-gray-500">per month</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2 rounded-lg bg-gray-50 p-3 text-sm">
+                    <div className="space-y-1">
+                      <div className="text-gray-500">Bank Details:</div>
+                      <div className="font-medium">{paymentDetails.bankName}</div>
+                      <div className="font-mono text-gray-600">IBAN: {paymentDetails.iban}</div>
+                      <div className="font-mono text-gray-600">BIC: {paymentDetails.bic}</div>
+                    </div>
+                    <div className="space-y-1 pt-2">
+                      <div className="text-gray-500">Payment Reference:</div>
+                      <div className="font-mono font-medium">{paymentDetails.reference}</div>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-4">
+                <CardTitle className="text-sm font-medium text-gray-500">Next Payment</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-baseline justify-between">
+                      <div className="space-y-1">
+                        <div className="text-sm text-gray-500">Payment for</div>
+                        <div className="text-lg font-semibold text-gray-900">{paymentDetails.rentMonth}</div>
+                      </div>
+                      <div className="text-right space-y-1">
+                        <div className="text-sm text-gray-500">Due date</div>
+                        <div className="text-lg font-semibold text-gray-900">{paymentDetails.dueDay}</div>
+                      </div>
+                    </div>
+                    <div className="pt-2">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-bold text-gray-900">{daysRemaining}</span>
+                        <span className="ml-2 text-sm text-gray-500">days remaining</span>
+                      </div>
+                      <div className="mt-1 text-sm text-gray-500">
+                        Today: {paymentDetails.currentDate}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="h-2 w-full rounded-full bg-gray-200">
+                      <div 
+                        className="h-2 rounded-full bg-blue-500" 
+                        style={{ width: `${progressPercentage}%` }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>Period start: {formatDate(currentMonthStart)}</span>
+                      <span>Due: {paymentDetails.dueDay}</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg font-medium">Payment History</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-lg border border-gray-200">
+                <div className="grid grid-cols-3 gap-4 border-b border-gray-200 bg-gray-50 p-4 text-sm font-medium text-gray-500">
+                  <div>Date</div>
+                  <div>Amount</div>
+                  <div>Status</div>
+                </div>
+                {paymentHistory.map((payment, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-3 gap-4 p-4 text-sm text-gray-900 transition-colors hover:bg-gray-50"
+                  >
+                    <div>{payment.date}</div>
+                    <div>€{payment.amount}</div>
+                    <div>
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+                        {payment.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </Layout>
+    </div>
   )
 }
 

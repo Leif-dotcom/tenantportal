@@ -74,92 +74,94 @@ export default function TenantsPage() {
   });
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <Link href="/landlord" className="text-blue-600 hover:underline">
-            ← Back to Dashboard
-          </Link>
-        </div>
-        <h1 className="text-3xl font-bold">Tenant Management</h1>
-      </div>
-
-      {/* Search and Filter Section */}
-      <div className="mb-8 flex gap-4">
-        <div className="flex-1">
-          <Input
-            placeholder="Search tenants by name..."
-            className="max-w-sm"
-            type="search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <Select value={selectedProperty} onValueChange={setSelectedProperty}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Filter by Property" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Properties</SelectItem>
-            {mockProperties.map((property) => (
-              <SelectItem key={property.id} value={property.id}>
-                {property.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-
-      {/* Tenants List */}
-      <div className="space-y-4">
-        {filteredTenants.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            No tenants found matching your search criteria
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <Link href="/landlord" className="text-blue-600 hover:underline">
+              ← Back to Dashboard
+            </Link>
           </div>
-        ) : (
-          filteredTenants.map((tenant) => (
-            <Link href={`/landlord/tenants/${tenant.id}`} key={tenant.id}>
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="mb-1">{tenant.name}</CardTitle>
-                      <div className="text-sm text-gray-500">
-                        {tenant.propertyName} - Apt {tenant.apartmentNumber}
+          <h1 className="text-3xl font-bold">Tenant Management</h1>
+        </div>
+
+        {/* Search and Filter Section */}
+        <div className="mb-8 flex gap-4">
+          <div className="flex-1">
+            <Input
+              placeholder="Search tenants by name..."
+              className="max-w-sm"
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <Select value={selectedProperty} onValueChange={setSelectedProperty}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Filter by Property" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Properties</SelectItem>
+              {mockProperties.map((property) => (
+                <SelectItem key={property.id} value={property.id}>
+                  {property.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Tenants List */}
+        <div className="space-y-4">
+          {filteredTenants.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              No tenants found matching your search criteria
+            </div>
+          ) : (
+            filteredTenants.map((tenant) => (
+              <Link href={`/landlord/tenants/${tenant.id}`} key={tenant.id}>
+                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                  <CardHeader className="pb-3">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="mb-1">{tenant.name}</CardTitle>
+                        <div className="text-sm text-gray-500">
+                          {tenant.propertyName} - Apt {tenant.apartmentNumber}
+                        </div>
+                      </div>
+                      <div className={`px-3 py-1 rounded-full text-sm ${
+                        tenant.status === 'active' 
+                          ? 'bg-green-100 text-green-700'
+                          : tenant.status === 'ending_soon'
+                          ? 'bg-yellow-100 text-yellow-700'
+                          : 'bg-red-100 text-red-700'
+                      }`}>
+                        {tenant.status === 'active' 
+                          ? 'Active'
+                          : tenant.status === 'ending_soon'
+                          ? 'Ending Soon'
+                          : 'Ended'}
                       </div>
                     </div>
-                    <div className={`px-3 py-1 rounded-full text-sm ${
-                      tenant.status === 'active' 
-                        ? 'bg-green-100 text-green-700'
-                        : tenant.status === 'ending_soon'
-                        ? 'bg-yellow-100 text-yellow-700'
-                        : 'bg-red-100 text-red-700'
-                    }`}>
-                      {tenant.status === 'active' 
-                        ? 'Active'
-                        : tenant.status === 'ending_soon'
-                        ? 'Ending Soon'
-                        : 'Ended'}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-gray-500">Contact:</p>
+                        <p>{tenant.email}</p>
+                        <p>{tenant.phone}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500">Lease Period:</p>
+                        <p>{formatDate(tenant.leaseStart)} - {formatDate(tenant.leaseEnd)}</p>
+                      </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-gray-500">Contact:</p>
-                      <p>{tenant.email}</p>
-                      <p>{tenant.phone}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Lease Period:</p>
-                      <p>{formatDate(tenant.leaseStart)} - {formatDate(tenant.leaseEnd)}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))
-        )}
+                  </CardContent>
+                </Card>
+              </Link>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

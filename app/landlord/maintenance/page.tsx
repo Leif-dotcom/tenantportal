@@ -164,136 +164,138 @@ export default function MaintenancePage() {
   });
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <Link href="/landlord" className="text-blue-600 hover:underline">
-            ← Back to Dashboard
-          </Link>
-        </div>
-        <h1 className="text-3xl font-bold">Maintenance Requests</h1>
-      </div>
-
-      {/* Filters */}
-      <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Input
-          placeholder="Search requests..."
-          type="search"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <Select value={selectedProperty} onValueChange={setSelectedProperty}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by Property" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Properties</SelectItem>
-            {mockProperties.map((property) => (
-              <SelectItem key={property.id} value={property.id}>
-                {property.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="new">New</SelectItem>
-            <SelectItem value="assigned">Assigned</SelectItem>
-            <SelectItem value="in_progress">In Progress</SelectItem>
-            <SelectItem value="completed">Completed</SelectItem>
-            <SelectItem value="cancelled">Cancelled</SelectItem>
-          </SelectContent>
-        </Select>
-        <Select value={selectedPriority} onValueChange={setSelectedPriority}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by Priority" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Priorities</SelectItem>
-            <SelectItem value="urgent">Urgent</SelectItem>
-            <SelectItem value="high">High</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="low">Low</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      {/* Maintenance Requests List */}
-      <div className="space-y-4">
-        {filteredRequests.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            No maintenance requests found matching your criteria
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <Link href="/landlord" className="text-blue-600 hover:underline">
+              ← Back to Dashboard
+            </Link>
           </div>
-        ) : (
-          filteredRequests.map((request) => (
-            <Card key={request.id} className="hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-3">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="mb-1">{request.title}</CardTitle>
-                    <div className="text-sm text-gray-500">
-                      {request.property.name} - Apt {request.apartment.number}
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Badge variant="secondary" className={getPriorityColor(request.priority)}>
-                      {request.priority.charAt(0).toUpperCase() + request.priority.slice(1)}
-                    </Badge>
-                    <Badge variant="secondary" className={getStatusColor(request.status)}>
-                      {request.status.split('_').map(word => 
-                        word.charAt(0).toUpperCase() + word.slice(1)
-                      ).join(' ')}
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
+          <h1 className="text-3xl font-bold">Maintenance Requests</h1>
+        </div>
+
+        {/* Filters */}
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Input
+            placeholder="Search requests..."
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Select value={selectedProperty} onValueChange={setSelectedProperty}>
+            <SelectTrigger>
+              <SelectValue placeholder="Filter by Property" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Properties</SelectItem>
+              {mockProperties.map((property) => (
+                <SelectItem key={property.id} value={property.id}>
+                  {property.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+            <SelectTrigger>
+              <SelectValue placeholder="Filter by Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Statuses</SelectItem>
+              <SelectItem value="new">New</SelectItem>
+              <SelectItem value="assigned">Assigned</SelectItem>
+              <SelectItem value="in_progress">In Progress</SelectItem>
+              <SelectItem value="completed">Completed</SelectItem>
+              <SelectItem value="cancelled">Cancelled</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={selectedPriority} onValueChange={setSelectedPriority}>
+            <SelectTrigger>
+              <SelectValue placeholder="Filter by Priority" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Priorities</SelectItem>
+              <SelectItem value="urgent">Urgent</SelectItem>
+              <SelectItem value="high">High</SelectItem>
+              <SelectItem value="medium">Medium</SelectItem>
+              <SelectItem value="low">Low</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Maintenance Requests List */}
+        <div className="space-y-4">
+          {filteredRequests.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              No maintenance requests found matching your criteria
+            </div>
+          ) : (
+            filteredRequests.map((request) => (
+              <Card key={request.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-sm font-medium text-gray-500">Description</p>
-                      <p className="mt-1">{request.description}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-500">Location</p>
-                      <p className="mt-1 capitalize">{request.room.replace('_', ' ')}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-500">Tenant</p>
-                      <p className="mt-1">{request.tenant.name}</p>
-                      <p className="text-sm text-gray-500">{request.tenant.phone}</p>
-                    </div>
-                  </div>
-                  
-                  {request.suggestedHandyman && (
-                    <div className="bg-blue-50 p-4 rounded-lg">
-                      <p className="text-sm font-medium text-blue-800 mb-2">Suggested Handyman</p>
-                      <div className="space-y-2">
-                        <p className="font-medium">{request.suggestedHandyman.name}</p>
-                        <p className="text-sm text-blue-700">
-                          {request.suggestedHandyman.specialization} • Rating: {request.suggestedHandyman.rating}
-                        </p>
-                        <p className="text-sm text-blue-600">
-                          Available from: {formatDate(request.suggestedHandyman.availableFrom)}
-                        </p>
-                        <Button size="sm" className="mt-2">
-                          Assign Handyman
-                        </Button>
+                      <CardTitle className="mb-1">{request.title}</CardTitle>
+                      <div className="text-sm text-gray-500">
+                        {request.property.name} - Apt {request.apartment.number}
                       </div>
                     </div>
-                  )}
-                </div>
-                <div className="mt-4 text-sm text-gray-500">
-                  Submitted on {formatDate(request.dateSubmitted)}
-                </div>
-              </CardContent>
-            </Card>
-          ))
-        )}
+                    <div className="flex gap-2">
+                      <Badge variant="secondary" className={getPriorityColor(request.priority)}>
+                        {request.priority.charAt(0).toUpperCase() + request.priority.slice(1)}
+                      </Badge>
+                      <Badge variant="secondary" className={getStatusColor(request.status)}>
+                        {request.status.split('_').map(word => 
+                          word.charAt(0).toUpperCase() + word.slice(1)
+                        ).join(' ')}
+                      </Badge>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">Description</p>
+                        <p className="mt-1">{request.description}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">Location</p>
+                        <p className="mt-1 capitalize">{request.room.replace('_', ' ')}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">Tenant</p>
+                        <p className="mt-1">{request.tenant.name}</p>
+                        <p className="text-sm text-gray-500">{request.tenant.phone}</p>
+                      </div>
+                    </div>
+                    
+                    {request.suggestedHandyman && (
+                      <div className="bg-blue-50 p-4 rounded-lg">
+                        <p className="text-sm font-medium text-blue-800 mb-2">Suggested Handyman</p>
+                        <div className="space-y-2">
+                          <p className="font-medium">{request.suggestedHandyman.name}</p>
+                          <p className="text-sm text-blue-700">
+                            {request.suggestedHandyman.specialization} • Rating: {request.suggestedHandyman.rating}
+                          </p>
+                          <p className="text-sm text-blue-600">
+                            Available from: {formatDate(request.suggestedHandyman.availableFrom)}
+                          </p>
+                          <Button size="sm" className="mt-2">
+                            Assign Handyman
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4 text-sm text-gray-500">
+                    Submitted on {formatDate(request.dateSubmitted)}
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

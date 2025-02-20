@@ -1,11 +1,17 @@
 import type React from "react"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function TenantPortal() {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="mx-auto max-w-4xl">
-        <h1 className="mb-8 text-3xl font-bold text-gray-800">Tenant Portal</h1>
+        <div className="flex justify-between">
+          <h1 className="mb-8 text-3xl font-bold text-gray-800">Tenant Portal</h1>
+          <Link href="/" className="flex-shrink-0">
+            <Button variant="outline" className="text-red-600">Logout</Button>
+          </Link>
+        </div>
         <div className="grid grid-cols-2 gap-6">
           <PortalCard
             title="Contact Landlord"

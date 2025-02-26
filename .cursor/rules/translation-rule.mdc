@@ -1,0 +1,5 @@
+---
+description: Creation and Modification of Features
+globs: 
+---
+Always make sure to apply changes and then implement them in all currently supported languages in the project which are under app>public>locales

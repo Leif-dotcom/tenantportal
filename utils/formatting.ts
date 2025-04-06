@@ -49,8 +49,51 @@ export function getPriorityColor(priority: string) {
   }
 }
 
+// This function is no longer used directly - use getTranslatedStatus instead
 export function formatStatus(status: string) {
   return status.split('_').map(word => 
     word.charAt(0).toUpperCase() + word.slice(1)
   ).join(' ');
+}
+
+// New function to get translated status
+export function getTranslatedStatus(status: string, dictionary: any) {
+  switch(status.toLowerCase()) {
+    case 'new':
+      return dictionary.landlord.statusNew;
+    case 'in_progress':
+      return dictionary.landlord.statusInProgress;
+    case 'completed':
+      return dictionary.landlord.statusCompleted;
+    case 'cancelled':
+      return dictionary.landlord.statusCancelled;
+    case 'assigned':
+      return dictionary.landlord.statusAssigned;
+    case 'pending':
+      return dictionary.landlord.statusPending;
+    case 'failed':
+      return dictionary.landlord.statusFailed;
+    case 'paid':
+      return dictionary.tenant.paid;
+    default:
+      // Fall back to the old format function for unknown statuses
+      return formatStatus(status);
+  }
+}
+
+// New function to get translated priority
+export function getTranslatedPriority(priority: string, dictionary: any) {
+  switch(priority.toLowerCase()) {
+    case 'urgent':
+      return dictionary.landlord.priorityUrgent;
+    case 'high':
+      return dictionary.landlord.priorityHigh;
+    case 'medium':
+      return dictionary.landlord.priorityMedium;
+    case 'low':
+      return dictionary.landlord.priorityLow;
+    default:
+      // Capitalize the unknown priority
+      return priority.charAt(0).toUpperCase() + priority.slice(1);
+  }
 } 

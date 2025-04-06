@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Tenant Portal',
+  description: 'A portal for landlords and tenants',
   generator: 'v0.dev',
 }
 
@@ -12,8 +12,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // The language will be set by the [lang] segment, 
+  // but we can't directly access it here
+  // The HTML lang attribute will get updated by the middleware
   return (
-    <html lang="en">
+    <html>
       <body>{children}</body>
     </html>
   )
